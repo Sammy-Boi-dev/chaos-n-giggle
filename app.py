@@ -1,7 +1,4 @@
 from flask import Flask, render_template, request, jsonify
-with open(".env", "r") as f:
-    print("Raw .env contents:")
-    print(repr(f.read()))
 from dotenv import load_dotenv
 from pathlib import Path
 import requests
@@ -15,11 +12,12 @@ print("Loading:", env_path)
 
 load_dotenv(dotenv_path=env_path)
 
-from dotenv import dotenv_values
+from dotenv import load_dotenv
+import os
 
-config = dotenv_values(".env")
+load_dotenv()
 
-API_KEY = config.get("OPENROUTER_API_KEY")
+API_KEY = os.getenv("OPENROUTER_API_KEY")
 
 print(API_KEY)
 MODEL = "moonshotai/kimi-k2:"
@@ -34,7 +32,7 @@ Personality:
 - Smart
 - Friendly
 - Loves jokes, memes, games and stories.
-- Keep replies natural.
+- Keep replies natural and short.
 """
 
 @app.route("/")
